@@ -1,0 +1,10 @@
+00:49:35 **** Incremental Build of configuration Debug for project P2_V1_SW_system ****
+make all 
+Generating bif file for the system project
+generate_system_bif.bat 63389 C:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/P2_wrapper_v1.xpfm domain_ps7_cortexa9_0 C:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_V1_SW_system/Debug/system.bif
+sdcard_gen --xpfm C:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/P2_wrapper_v1.xpfm --sys_config P2_wrapper_v1 --bif C:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_V1_SW_system/Debug/system.bif --bitstream C:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_V1_SW/_ide/bitstream/P2_wrapper_v1.bit --elf C:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_V1_SW/Debug/P2_V1_SW.elf,ps7_cortexa9_0
+creating BOOT.BIN using C:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_V1_SW/_ide/bitstream/P2_wrapper_v1.bit
+Running C:/Xilinx2020/Vitis/2020.1/bin/bootgen  -image C:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_V1_SW_system/Debug/sd_card_temp/boot.bif -w -o i BOOT.BIN
+
+00:49:47 Build Finished (took 11s.832ms)
+

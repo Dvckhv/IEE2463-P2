@@ -1,0 +1,10 @@
+09:04:09 **** Incremental Build of configuration Release for project P2_SW ****
+make all 
+make --no-print-directory pre-build
+a9-linaro-pre-build-step
+' '
+make --no-print-directory main-build
+make[1]: Nothing to be done for 'main-build'.
+
+09:04:11 Build Finished (took 1s.787ms)
+

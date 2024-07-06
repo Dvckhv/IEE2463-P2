@@ -1,0 +1,89 @@
+00:50:03 **** Incremental Build of configuration Release for project P2_V1_SW ****
+make all 
+make --no-print-directory pre-build
+a9-linaro-pre-build-step
+' '
+make --no-print-directory main-build
+'Building file: ../src/ADC.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/ADC.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/ADC.d" -MT"src/ADC.o" -o "src/ADC.o" "../src/ADC.c"
+'Finished building: ../src/ADC.c'
+' '
+'Building file: ../src/Delay.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/Delay.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/Delay.d" -MT"src/Delay.o" -o "src/Delay.o" "../src/Delay.c"
+'Finished building: ../src/Delay.c'
+' '
+'Building file: ../src/I2C.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/I2C.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/I2C.d" -MT"src/I2C.o" -o "src/I2C.o" "../src/I2C.c"
+'Finished building: ../src/I2C.c'
+' '
+'Building file: ../src/LCD_Driver.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/LCD_Driver.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/LCD_Driver.d" -MT"src/LCD_Driver.o" -o "src/LCD_Driver.o" "../src/LCD_Driver.c"
+'Finished building: ../src/LCD_Driver.c'
+' '
+'Building file: ../src/LCD_GUI.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/LCD_GUI.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/LCD_GUI.d" -MT"src/LCD_GUI.o" -o "src/LCD_GUI.o" "../src/LCD_GUI.c"
+'Finished building: ../src/LCD_GUI.c'
+' '
+'Building file: ../src/LCD_SPI.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/LCD_SPI.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/LCD_SPI.d" -MT"src/LCD_SPI.o" -o "src/LCD_SPI.o" "../src/LCD_SPI.c"
+'Finished building: ../src/LCD_SPI.c'
+' '
+'Building file: ../src/font12.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/font12.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/font12.d" -MT"src/font12.o" -o "src/font12.o" "../src/font12.c"
+'Finished building: ../src/font12.c'
+' '
+'Building file: ../src/font16.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/font16.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/font16.d" -MT"src/font16.o" -o "src/font16.o" "../src/font16.c"
+'Finished building: ../src/font16.c'
+' '
+'Building file: ../src/font20.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/font20.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/font20.d" -MT"src/font20.o" -o "src/font20.o" "../src/font20.c"
+'Finished building: ../src/font20.c'
+' '
+'Building file: ../src/font24.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/font24.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/font24.d" -MT"src/font24.o" -o "src/font24.o" "../src/font24.c"
+'Finished building: ../src/font24.c'
+' '
+'Building file: ../src/font8.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/font8.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/font8.d" -MT"src/font8.o" -o "src/font8.o" "../src/font8.c"
+'Finished building: ../src/font8.c'
+' '
+'Building file: ../src/main.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/main.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'main':
+../src/main.c:83:7: warning: unused variable 'acz' [-Wunused-variable]
+   83 |  char acz[16] = {};
+      |       ^~~
+'Finished building: ../src/main.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/platform.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: P2_V1_SW.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -LC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v1/export/P2_wrapper_v1/sw/P2_wrapper_v1/domain_ps7_cortexa9_0/bsplib/lib -o "P2_V1_SW.elf"  ./src/ADC.o ./src/Delay.o ./src/I2C.o ./src/LCD_Driver.o ./src/LCD_GUI.o ./src/LCD_SPI.o ./src/font12.o ./src/font16.o ./src/font20.o ./src/font24.o ./src/font8.o ./src/main.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: P2_V1_SW.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size P2_V1_SW.elf  |tee "P2_V1_SW.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 141633	   2676	  22976	 167285	  28d75	P2_V1_SW.elf
+'Finished building: P2_V1_SW.elf.size'
+' '
+
+00:50:10 Build Finished (took 7s.20ms)
+

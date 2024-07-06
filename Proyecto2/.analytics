@@ -1,0 +1,133 @@
+timestamp=[2024-06-18 22:31:31], mode=WORKBENCH_START, duration=0:00:09.184, duration_ms=9184, data={}
+timestamp=[2024-06-18 22:31:32], mode=WORKBENCH_UI_INIT, duration=0:00:00.847, duration_ms=847, data={editors_count=0, platform_editors_count=0, projects_count=0, platform_projects_count=0, active_platform_editor=false, projects=}
+timestamp=[2024-06-18 22:31:37], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:04.088, duration_ms=4088, data={}
+timestamp=[2024-06-18 22:34:12], mode=WORKBENCH_START, duration=0:00:08.375, duration_ms=8375, data={}
+timestamp=[2024-06-18 22:34:13], mode=WORKBENCH_UI_INIT, duration=0:00:00.865, duration_ms=865, data={editors_count=0, platform_editors_count=0, projects_count=1, platform_projects_count=0, active_platform_editor=false, projects=RemoteSystemsTempFiles}
+timestamp=[2024-06-18 22:34:18], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:03.915, duration_ms=3915, data={}
+timestamp=[2024-06-18 22:39:44], mode=APP_CREATION, duration=0:00:44.084, duration_ms=44084, data={name=P2_SW, project_type=sdk, os=standalone, processor=ps7_cortexa9, runtime=cpp, platform=P2_wrapper, application_type=application}
+timestamp=[2024-06-18 22:44:46], mode=PLATFORM_GENERATION, duration=0:00:49.198, duration_ms=49198, data={name=P2_wrapper}
+timestamp=[2024-06-18 22:44:49], mode=PLATFORM_GENERATION, duration=0:00:02.895, duration_ms=2895, data={name=P2_wrapper}
+timestamp=[2024-06-18 22:44:52], mode=PLATFORM_GENERATION, duration=0:00:02.877, duration_ms=2877, data={name=P2_wrapper}
+timestamp=[2024-06-18 22:45:11], mode=PLATFORM_GENERATION, duration=0:00:18.330, duration_ms=18330, data={name=P2_wrapper}
+timestamp=[2024-06-18 22:46:54], mode=PLATFORM_GENERATION, duration=0:01:15.636, duration_ms=75636, data={name=P2_wrapper}
+timestamp=[2024-06-18 22:47:02], mode=BUILD, duration=0:00:07.650, duration_ms=7650, data={name=P2_SW, configuration=Debug, clean_build=false}
+timestamp=[2024-06-18 22:50:22], mode=BUILD, duration=0:00:04.677, duration_ms=4677, data={name=P2_SW, configuration=Debug, clean_build=false}
+timestamp=[2024-06-18 22:50:57], mode=BUILD, duration=0:00:07.420, duration_ms=7420, data={name=P2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-18 22:57:49], mode=BUILD, duration=0:00:02.461, duration_ms=2461, data={name=P2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 00:40:46], mode=WORKBENCH_START, duration=0:00:15.875, duration_ms=15875, data={}
+timestamp=[2024-06-19 00:40:48], mode=WORKBENCH_UI_INIT, duration=0:00:01.497, duration_ms=1497, data={editors_count=3, platform_editors_count=0, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=P2_SW,P2_SW_system,P2_wrapper,RemoteSystemsTempFiles}
+timestamp=[2024-06-19 00:40:48], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.100, duration_ms=100, data={}
+timestamp=[2024-06-19 00:42:24], mode=APP_CREATION, duration=0:00:39.098, duration_ms=39098, data={name=P2_V1_SW, project_type=sdk, os=standalone, processor=ps7_cortexa9, runtime=cpp, platform=P2_wrapper_v1, application_type=application}
+timestamp=[2024-06-19 00:48:42], mode=PLATFORM_GENERATION, duration=0:01:21.871, duration_ms=81871, data={name=P2_wrapper_v1}
+timestamp=[2024-06-19 00:48:49], mode=BUILD, duration=0:00:07.157, duration_ms=7157, data={name=P2_V1_SW, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 00:48:54], mode=BUILD, duration=0:00:04.319, duration_ms=4319, data={name=P2_V1_SW_system, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 00:49:35], mode=BUILD, duration=0:00:04.485, duration_ms=4485, data={name=P2_V1_SW, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 00:49:47], mode=BUILD, duration=0:00:11.847, duration_ms=11847, data={name=P2_V1_SW_system, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 00:50:10], mode=BUILD, duration=0:00:07.051, duration_ms=7051, data={name=P2_V1_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 01:24:14], mode=WORKBENCH_START, duration=0:00:14.883, duration_ms=14883, data={}
+timestamp=[2024-06-19 01:24:15], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.119, duration_ms=119, data={}
+timestamp=[2024-06-19 01:24:15], mode=WORKBENCH_UI_INIT, duration=0:00:01.742, duration_ms=1742, data={editors_count=3, platform_editors_count=0, projects_count=7, platform_projects_count=2, active_platform_editor=false, projects=P2_SW,P2_SW_system,P2_V1_SW,P2_V1_SW_system,P2_wrapper,P2_wrapper_v1,RemoteSystemsTempFiles}
+timestamp=[2024-06-19 01:25:39], mode=APP_CREATION, duration=0:00:37.642, duration_ms=37642, data={name=P2_V2_SW, project_type=sdk, os=standalone, processor=ps7_cortexa9, runtime=cpp, platform=P2_wrapper_v2, application_type=application}
+timestamp=[2024-06-19 01:28:21], mode=PLATFORM_GENERATION, duration=0:01:23.174, duration_ms=83174, data={name=P2_wrapper_v2}
+timestamp=[2024-06-19 01:28:29], mode=BUILD, duration=0:00:07.599, duration_ms=7599, data={name=P2_V2_SW, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 01:29:18], mode=BUILD, duration=0:00:02.361, duration_ms=2361, data={name=P2_V2_SW, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 01:29:23], mode=BUILD, duration=0:00:04.472, duration_ms=4472, data={name=P2_V2_SW_system, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 01:29:53], mode=BUILD, duration=0:00:04.473, duration_ms=4473, data={name=P2_V2_SW, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 01:30:05], mode=BUILD, duration=0:00:11.277, duration_ms=11277, data={name=P2_V2_SW_system, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 01:30:29], mode=BUILD, duration=0:00:07.388, duration_ms=7388, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 01:53:26], mode=BUILD, duration=0:00:04.250, duration_ms=4250, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 01:53:42], mode=BUILD, duration=0:00:01.083, duration_ms=1083, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 01:56:27], mode=BUILD, duration=0:00:02.314, duration_ms=2314, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 01:57:08], mode=BUILD, duration=0:00:02.504, duration_ms=2504, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:13:25], mode=BUILD, duration=0:00:02.367, duration_ms=2367, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:20:12], mode=BUILD, duration=0:00:01.492, duration_ms=1492, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:21:42], mode=BUILD, duration=0:00:01.501, duration_ms=1501, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:22:35], mode=BUILD, duration=0:00:01.570, duration_ms=1570, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:23:05], mode=BUILD, duration=0:00:01.569, duration_ms=1569, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:23:28], mode=BUILD, duration=0:00:02.498, duration_ms=2498, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:25:23], mode=BUILD, duration=0:00:02.436, duration_ms=2436, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:28:50], mode=BUILD, duration=0:00:02.439, duration_ms=2439, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:30:37], mode=BUILD, duration=0:00:02.488, duration_ms=2488, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:33:47], mode=BUILD, duration=0:00:02.321, duration_ms=2321, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:34:37], mode=BUILD, duration=0:00:02.373, duration_ms=2373, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:35:36], mode=BUILD, duration=0:00:01.143, duration_ms=1143, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:36:23], mode=BUILD, duration=0:00:02.381, duration_ms=2381, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:36:59], mode=BUILD, duration=0:00:02.819, duration_ms=2819, data={name=P2_V2_SW, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 02:38:17], mode=BUILD, duration=0:00:02.889, duration_ms=2889, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:40:06], mode=BUILD, duration=0:00:02.504, duration_ms=2504, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:42:00], mode=BUILD, duration=0:00:02.378, duration_ms=2378, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:45:42], mode=BUILD, duration=0:00:02.392, duration_ms=2392, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:48:11], mode=BUILD, duration=0:00:02.584, duration_ms=2584, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:56:32], mode=BUILD, duration=0:00:02.393, duration_ms=2393, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:57:28], mode=BUILD, duration=0:00:01.106, duration_ms=1106, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:58:06], mode=BUILD, duration=0:00:02.348, duration_ms=2348, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 02:59:38], mode=BUILD, duration=0:00:02.375, duration_ms=2375, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:07:07], mode=BUILD, duration=0:00:02.547, duration_ms=2547, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:10:16], mode=BUILD, duration=0:00:01.201, duration_ms=1201, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:23:42], mode=WORKBENCH_START, duration=0:00:15.926, duration_ms=15926, data={}
+timestamp=[2024-06-19 03:23:44], mode=WORKBENCH_UI_INIT, duration=0:00:01.556, duration_ms=1556, data={editors_count=4, platform_editors_count=1, projects_count=10, platform_projects_count=3, active_platform_editor=false, projects=P2_SW,P2_SW_system,P2_V1_SW,P2_V1_SW_system,P2_V2_SW,P2_V2_SW_system,P2_wrapper,P2_wrapper_v1,P2_wrapper_v2,RemoteSystemsTempFiles}
+timestamp=[2024-06-19 03:23:44], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.180, duration_ms=180, data={}
+timestamp=[2024-06-19 03:25:11], mode=APP_CREATION, duration=0:00:38.968, duration_ms=38968, data={name=P2_SW_V3, project_type=sdk, os=standalone, processor=ps7_cortexa9, runtime=cpp, platform=P2_wrapper_v3, application_type=application}
+timestamp=[2024-06-19 03:28:30], mode=PLATFORM_GENERATION, duration=0:01:28.965, duration_ms=88965, data={name=P2_wrapper_v3}
+timestamp=[2024-06-19 03:28:39], mode=BUILD, duration=0:00:08.351, duration_ms=8351, data={name=P2_SW_V3, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 03:29:26], mode=BUILD, duration=0:00:04.675, duration_ms=4675, data={name=P2_SW_V3, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 03:29:31], mode=BUILD, duration=0:00:04.618, duration_ms=4618, data={name=P2_SW_V3_system, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 03:29:53], mode=BUILD, duration=0:00:02.504, duration_ms=2504, data={name=P2_SW_V3, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 03:30:06], mode=BUILD, duration=0:00:12.498, duration_ms=12498, data={name=P2_SW_V3_system, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 03:32:05], mode=BUILD, duration=0:00:02.371, duration_ms=2371, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:32:25], mode=BUILD, duration=0:00:02.904, duration_ms=2904, data={name=P2_SW_V3, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 03:32:37], mode=BUILD, duration=0:00:11.443, duration_ms=11443, data={name=P2_SW_V3_system, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 03:32:52], mode=BUILD, duration=0:00:01.871, duration_ms=1871, data={name=P2_V2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:33:02], mode=BUILD, duration=0:00:03.001, duration_ms=3001, data={name=P2_V2_SW, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 03:33:32], mode=BUILD, duration=0:00:07.773, duration_ms=7773, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:42:50], mode=BUILD, duration=0:00:02.877, duration_ms=2877, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:43:19], mode=BUILD, duration=0:00:02.337, duration_ms=2337, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:44:59], mode=BUILD, duration=0:00:02.058, duration_ms=2058, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:45:07], mode=BUILD, duration=0:00:02.627, duration_ms=2627, data={name=P2_SW_V3, configuration=Debug, clean_build=false}
+timestamp=[2024-06-19 03:47:29], mode=BUILD, duration=0:00:02.239, duration_ms=2239, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:52:22], mode=BUILD, duration=0:00:02.764, duration_ms=2764, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:53:32], mode=BUILD, duration=0:00:02.171, duration_ms=2171, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:54:48], mode=BUILD, duration=0:00:02.303, duration_ms=2303, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:56:36], mode=BUILD, duration=0:00:02.286, duration_ms=2286, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 03:57:52], mode=BUILD, duration=0:00:02.224, duration_ms=2224, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 04:01:01], mode=BUILD, duration=0:00:02.373, duration_ms=2373, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 04:16:26], mode=BUILD, duration=0:00:02.130, duration_ms=2130, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 04:17:54], mode=WORKBENCH_START, duration=0:00:15.354, duration_ms=15354, data={}
+timestamp=[2024-06-19 04:17:56], mode=WORKBENCH_UI_INIT, duration=0:00:01.596, duration_ms=1596, data={editors_count=2, platform_editors_count=0, projects_count=13, platform_projects_count=4, active_platform_editor=false, projects=P2_SW,P2_SW_V3,P2_SW_V3_system,P2_SW_system,P2_V1_SW,P2_V1_SW_system,P2_V2_SW,P2_V2_SW_system,P2_wrapper,P2_wrapper_v1,P2_wrapper_v2,P2_wrapper_v3,RemoteSystemsTempFiles}
+timestamp=[2024-06-19 04:17:56], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.162, duration_ms=162, data={}
+timestamp=[2024-06-19 04:18:55], mode=PLATFORM_GENERATION, duration=0:00:50.280, duration_ms=50280, data={name=P2_wrapper_v3}
+timestamp=[2024-06-19 04:19:03], mode=BUILD, duration=0:00:05.113, duration_ms=5113, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 04:19:23], mode=BUILD, duration=0:00:04.536, duration_ms=4536, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 04:28:29], mode=BUILD, duration=0:00:02.652, duration_ms=2652, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 04:30:20], mode=BUILD, duration=0:00:02.384, duration_ms=2384, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 04:32:08], mode=BUILD, duration=0:00:02.121, duration_ms=2121, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 04:33:20], mode=BUILD, duration=0:00:02.197, duration_ms=2197, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 04:38:58], mode=BUILD, duration=0:00:02.851, duration_ms=2851, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 08:48:52], mode=WORKBENCH_START, duration=0:00:23.813, duration_ms=23813, data={}
+timestamp=[2024-06-19 08:48:54], mode=WORKBENCH_UI_INIT, duration=0:00:01.978, duration_ms=1978, data={editors_count=3, platform_editors_count=1, projects_count=13, platform_projects_count=4, active_platform_editor=false, projects=P2_SW,P2_SW_V3,P2_SW_V3_system,P2_SW_system,P2_V1_SW,P2_V1_SW_system,P2_V2_SW,P2_V2_SW_system,P2_wrapper,P2_wrapper_v1,P2_wrapper_v2,P2_wrapper_v3,RemoteSystemsTempFiles}
+timestamp=[2024-06-19 08:48:55], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.316, duration_ms=316, data={}
+timestamp=[2024-06-19 09:02:23], mode=PLATFORM_GENERATION, duration=0:01:23.900, duration_ms=83900, data={name=P2_wrapper}
+timestamp=[2024-06-19 09:02:32], mode=BUILD, duration=0:00:08.490, duration_ms=8490, data={name=P2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 09:03:36], mode=BUILD, duration=0:00:07.409, duration_ms=7409, data={name=P2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 09:04:11], mode=BUILD, duration=0:00:01.826, duration_ms=1826, data={name=P2_SW, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 09:08:39], mode=BUILD, duration=0:00:03.684, duration_ms=3684, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 09:23:34], mode=BUILD, duration=0:00:03.813, duration_ms=3813, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 09:30:24], mode=BUILD, duration=0:00:03.884, duration_ms=3884, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-06-19 09:32:41], mode=WORKBENCH_START, duration=0:00:23.334, duration_ms=23334, data={}
+timestamp=[2024-06-19 09:32:43], mode=WORKBENCH_UI_INIT, duration=0:00:02.217, duration_ms=2217, data={editors_count=4, platform_editors_count=1, projects_count=13, platform_projects_count=4, active_platform_editor=false, projects=P2_SW,P2_SW_V3,P2_SW_V3_system,P2_SW_system,P2_V1_SW,P2_V1_SW_system,P2_V2_SW,P2_V2_SW_system,P2_wrapper,P2_wrapper_v1,P2_wrapper_v2,P2_wrapper_v3,RemoteSystemsTempFiles}
+timestamp=[2024-06-19 09:32:44], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.295, duration_ms=295, data={}
+timestamp=[2024-06-19 09:33:08], mode=BUILD, duration=0:00:02.080, duration_ms=2080, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-07-05 15:45:16], mode=WORKBENCH_START, duration=0:00:15.854, duration_ms=15854, data={}
+timestamp=[2024-07-05 15:45:18], mode=WORKBENCH_UI_INIT, duration=0:00:01.637, duration_ms=1637, data={editors_count=4, platform_editors_count=1, projects_count=13, platform_projects_count=4, active_platform_editor=false, projects=P2_SW,P2_SW_V3,P2_SW_V3_system,P2_SW_system,P2_V1_SW,P2_V1_SW_system,P2_V2_SW,P2_V2_SW_system,P2_wrapper,P2_wrapper_v1,P2_wrapper_v2,P2_wrapper_v3,RemoteSystemsTempFiles}
+timestamp=[2024-07-05 15:45:18], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.293, duration_ms=293, data={}
+timestamp=[2024-07-05 15:49:25], mode=BUILD, duration=0:00:01.766, duration_ms=1766, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-07-05 16:11:54], mode=BUILD, duration=0:00:04.510, duration_ms=4510, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-07-05 16:12:29], mode=BUILD, duration=0:00:01.754, duration_ms=1754, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-07-05 16:13:48], mode=BUILD, duration=0:00:02.213, duration_ms=2213, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-07-05 16:14:40], mode=BUILD, duration=0:00:00.803, duration_ms=803, data={name=P2_SW_V3, configuration=Release, clean_build=true}
+timestamp=[2024-07-05 16:14:48], mode=BUILD, duration=0:00:06.606, duration_ms=6606, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-07-05 16:16:30], mode=BUILD, duration=0:00:02.201, duration_ms=2201, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-07-05 16:17:35], mode=BUILD, duration=0:00:02.334, duration_ms=2334, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-07-05 16:18:35], mode=BUILD, duration=0:00:02.252, duration_ms=2252, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-07-05 16:18:55], mode=BUILD, duration=0:00:02.258, duration_ms=2258, data={name=P2_SW_V3, configuration=Release, clean_build=false}
+timestamp=[2024-07-05 16:20:14], mode=BUILD, duration=0:00:02.267, duration_ms=2267, data={name=P2_SW_V3, configuration=Release, clean_build=false}
