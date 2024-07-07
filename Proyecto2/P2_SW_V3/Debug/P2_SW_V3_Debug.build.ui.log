@@ -1,71 +1,0 @@
-2024-06-19T03:45:05.270318800255-03:45:05 **** Incremental Build of configuration Debug for project P2_SW_V3 ****
-000-make all 
-000-make --no-print-directory pre-build
-000-a9-linaro-pre-build-step
-000-' '
-000-make --no-print-directory main-build
-000-'Building file: ../src/LCD_GUI.c'
-000-'Invoking: ARM v7 gcc compiler'
-000-arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/LCD_GUI.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v3/export/P2_wrapper_v3/sw/P2_wrapper_v3/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/LCD_GUI.d" -MT"src/LCD_GUI.o" -o "src/LCD_GUI.o" "../src/LCD_GUI.c"
-000-'Finished building: ../src/LCD_GUI.c'
-000-' '
-000-'Building file: ../src/main.c'
-000-'Invoking: ARM v7 gcc compiler'
-000-arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v3/export/P2_wrapper_v3/sw/P2_wrapper_v3/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
-000-../src/main.c: In function 'main':
-000/P2_SW_V3/src/main.c85-1-1passing argument 2 of 'Xil_Out32' makes integer from pointer without a cast [-Wint-conversion]1-../src/main.c:85:48: warning: passing argument 2 of 'Xil_Out32' makes integer from pointer without a cast [-Wint-conversion]
-000-   85 |  Xil_Out32(XPAR_BUZZER_AXI_0_S00_AXI_BASEADDR, &magnitud);
-000-      |                                                ^~~~~~~~~
-000-      |                                                |
-000-      |                                                int *
-000-In file included from C:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v3/export/P2_wrapper_v3/sw/P2_wrapper_v3/domain_ps7_cortexa9_0/bspinclude/include/sleep.h:30,
-000-                 from ../src/main.c:2:
-000/P2_wrapper_v3/export/P2_wrapper_v3/sw/P2_wrapper_v3/domain_ps7_cortexa9_0/bspinclude/include/xil_io.h200-1-1expected 'u32' {aka 'long unsigned int'} but argument is of type 'int *'0-C:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v3/export/P2_wrapper_v3/sw/P2_wrapper_v3/domain_ps7_cortexa9_0/bspinclude/include/xil_io.h:200:48: note: expected 'u32' {aka 'long unsigned int'} but argument is of type 'int *'
-000-  200 | static INLINE void Xil_Out32(UINTPTR Addr, u32 Value)
-000-      |                                            ~~~~^~~~~
-000/P2_SW_V3/src/main.c82-1-1unused variable 'mic' [-Wunused-variable]1-../src/main.c:82:7: warning: unused variable 'mic' [-Wunused-variable]
-000-   82 |  char mic[16] = {};
-000-      |       ^~~
-000/P2_SW_V3/src/main.c81-1-1unused variable 'pot2' [-Wunused-variable]1-../src/main.c:81:7: warning: unused variable 'pot2' [-Wunused-variable]
-000-   81 |  char pot2[16] = {};
-000-      |       ^~~~
-000/P2_SW_V3/src/main.c80-1-1unused variable 'pot1' [-Wunused-variable]1-../src/main.c:80:7: warning: unused variable 'pot1' [-Wunused-variable]
-000-   80 |  char pot1[16] = {};
-000-      |       ^~~~
-000/P2_SW_V3/src/main.c79-1-1unused variable 'opt' [-Wunused-variable]1-../src/main.c:79:7: warning: unused variable 'opt' [-Wunused-variable]
-000-   79 |  char opt[16] = {};
-000-      |       ^~~
-000/P2_SW_V3/src/main.c78-1-1unused variable 'tmp' [-Wunused-variable]1-../src/main.c:78:7: warning: unused variable 'tmp' [-Wunused-variable]
-000-   78 |  char tmp[16] = {};
-000-      |       ^~~
-000/P2_SW_V3/src/main.c77-1-1unused variable 'acz' [-Wunused-variable]1-../src/main.c:77:7: warning: unused variable 'acz' [-Wunused-variable]
-000-   77 |  char acz[16] = {};
-000-      |       ^~~
-000/P2_SW_V3/src/main.c76-1-1unused variable 'acy' [-Wunused-variable]1-../src/main.c:76:7: warning: unused variable 'acy' [-Wunused-variable]
-000-   76 |  char acy[16] = {};
-000-      |       ^~~
-000/P2_SW_V3/src/main.c75-1-1unused variable 'acx' [-Wunused-variable]1-../src/main.c:75:7: warning: unused variable 'acx' [-Wunused-variable]
-000-   75 |  char acx[16] = {};
-000-      |       ^~~
-000/P2_SW_V3/src/main.c74-1-1unused variable 'joyy' [-Wunused-variable]1-../src/main.c:74:7: warning: unused variable 'joyy' [-Wunused-variable]
-000-   74 |  char joyy[16] = {};
-000-      |       ^~~~
-000/P2_SW_V3/src/main.c73-1-1unused variable 'joyx' [-Wunused-variable]1-../src/main.c:73:7: warning: unused variable 'joyx' [-Wunused-variable]
-000-   73 |  char joyx[16] = {};
-000-      |       ^~~~
-000-'Finished building: ../src/main.c'
-000-' '
-000-'Building target: P2_SW_V3.elf'
-000-'Invoking: ARM v7 gcc linker'
-000-arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -LC:/Users/vicen/OneDrive/Escritorio/Septimo_Semestre/SEP/Proyecto2/Proyecto2/P2_wrapper_v3/export/P2_wrapper_v3/sw/P2_wrapper_v3/domain_ps7_cortexa9_0/bsplib/lib -o "P2_SW_V3.elf"  ./src/ADC.o ./src/Delay.o ./src/I2C.o ./src/LCD_Driver.o ./src/LCD_GUI.o ./src/LCD_SPI.o ./src/font12.o ./src/font16.o ./src/font20.o ./src/font24.o ./src/font8.o ./src/main.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
-000-'Finished building target: P2_SW_V3.elf'
-000-' '
-000-'Invoking: ARM v7 Print Size'
-000-arm-none-eabi-size P2_SW_V3.elf  |tee "P2_SW_V3.elf.size"
-000-   text	   data	    bss	    dec	    hex	filename
-000- 225532	   2678	  22976	 251186	  3d532	P2_SW_V3.elf
-000-'Finished building: P2_SW_V3.elf.size'
-000-' '
-00255-
-03:45:07 Build Finished (took 2s.603ms)
-
