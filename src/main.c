@@ -14,6 +14,7 @@
 #include "LCD_GUI.h"
 #include "ADC.h"
 #include "I2C.h"
+#include "structs.h"
 
 
 extern XGpio gpio0;
@@ -25,15 +26,19 @@ extern const unsigned char font[] ;
 #define FOREGROUND BLUE
 #define DELAY 1000
 
+#define MAX_BOMBS 1000  //Para generar las estructuras de tipo bomb
+
+void menu(struct options *settings);
+void gameover(int win);
 
 int main()
 {
 	int Status;
 	int magnitud;
-	int posicion = 59;
-	int prev_posicion = 59;
+	int tanque_X = 59;
+	int prev_tanque_X = 59;
 	int movimiento;
-	int altura = 100;
+	int tanque_Y = 100;
 
     //Initialize the UART
     init_platform();
@@ -85,10 +90,34 @@ int main()
 	//char pot2[16] = {};
 	char mic[16] = {};
 
-	LCD_Clear(GUI_BACKGROUND);
-
 	scanf("ingrese la atenuación del parlante [1-4] %d", &magnitud);
 	Xil_Out32(XPAR_BUZZER_AXI_0_S00_AXI_BASEADDR, &magnitud);
+
+	//--------> Juego y Pantalla <---------
+
+	struct player tank;    				//tank estructura tipo player
+	struct alien aliens[45]; 			//45 estructuras alien dentro de aliens
+	struct shoot shot[3];				//3 estructuras shoot dentro de shot
+	struct bomb bombs[MAX_BOMBS];		//estructuras bomb dentro de bombs
+	struct options settings;			//settings estructura tipo options
+//	unsigned int input, loops=0, i=0, j=0, currentshots=0, currentbombs=0, currentaliens=30;
+//	int random=0, score=0, win=-1;
+//	char tellscore[30];
+
+	LCD_Clear(GUI_BACKGROUND);			//se limpia la pantalla
+
+	settings.alien = 12;				//"timer" para acción de los aliens
+	settings.shots = 3;					//"timer" para movimiento del disparo
+	settings.bombs = 10;				//"timer" para movimiento de la bomba
+	settings.bombchance = 5;			//para la prob de tirar bomba
+
+	tank.y = tanque_Y;					//coordenadas x e y del tanque
+	tank.x = tanque_X;
+	GUI_tanque(tanque_X, tanque_Y);		//Dibuja el tanque en pantalla
+
+
+
+
 
 	//Colocar Aliens
 	for (int i = 0; i<9; i++){
@@ -96,8 +125,6 @@ int main()
 			GUI_Alien_A(i*13 + 8, j*11 + 10);
 		}
 	}
-
-	GUI_tanque(posicion, altura);
 
 	while(1){
 
@@ -118,15 +145,15 @@ int main()
 		else if(read_acx() > 579){
 			movimiento = 3;
 		}
-		if (posicion + movimiento >= 3 && posicion + movimiento <= 112){
-			posicion += movimiento;
+		if (tanque_X + movimiento >= 3 && tanque_X + movimiento <= 112){
+			tanque_X += movimiento;
 			//xil_printf("Movimiento: %d\r\n", movimiento);
-			GUI_mover_tanque(posicion, prev_posicion, altura);
-			prev_posicion = posicion;
+			GUI_mover_tanque(tanque_X, prev_tanque_X, tanque_Y);
+			prev_tanque_X = tanque_X;
 		}
-		xil_printf("Posicion: %d\r\n", read_acx());
 
-		delay_ms(20);
+
+		delay_ms(15);
 
 
 	}
