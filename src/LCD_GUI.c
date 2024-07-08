@@ -468,5 +468,7 @@ void GUI_mover_tanque(int X, int prev_X, int Y){
 
 }
 
-
+void GUI_mover_bomba(int X, int Y, COLOR color){
+	GUI_DrawRectangle(X,Y-2,X,Y+1,color,DRAW_FULL,DOT_PIXEL_1X1);
+}
 

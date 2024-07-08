@@ -1,20 +1,19 @@
 struct player {
-	int y,x;
+	int y,x,px;
 };
 
 struct alien {
-	int r,c;
-	int pr,pc;
+	int y,x;
 	int alive; /* 1=alive 0=destroyed */
 };
 
 struct shoot {
-	int r,c;
+	int y,x;
 	int active; /* 1=active 0=inactive */
 };
 
 struct bomb {
-	int r,c;
+	int y,x;
 	int active; /* 1=active 0=inactive */
 	int loop; /* used to prevent alien from flashing when bomb is dropped */
 };

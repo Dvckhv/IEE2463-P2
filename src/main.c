@@ -14,8 +14,11 @@
 #include "LCD_GUI.h"
 #include "ADC.h"
 #include "I2C.h"
-#include "structs.h"
 
+#include "structs.h"
+#include "xtmrctr.h"
+#include "xscugic.h"
+#include "xil_exception.h"
 
 extern XGpio gpio0;
 extern XSpi  SpiInstance;	 /* The instance of the SPI device */
@@ -26,19 +29,57 @@ extern const unsigned char font[] ;
 #define FOREGROUND BLUE
 #define DELAY 1000
 
-#define MAX_BOMBS 1000  //Para generar las estructuras de tipo bomb
+
+//--------- INTERRUPTS -----------
+
+XGpio gpio1; //LUZ
+XScuGic INTCInst;
+XTmrCtr TMRInst;
+XTmrCtr TMRInst1;
+
+static int tmr_count;
+static int tmr_count1;
+#define TMR_LOAD 0xFFE17B7E // 1s Timer 50 Hz
+#define TMR_LOAD1 0xFFCD232A // 2s Timer 30 Hz
+
+// ----- Parameter definitions ------
+
+#define INTC_DEVICE_ID     XPAR_PS7_SCUGIC_0_DEVICE_ID
+#define TMR_DEVICE_ID     XPAR_TMRCTR_0_DEVICE_ID
+#define TMR_DEVICE_ID_1     XPAR_TMRCTR_1_DEVICE_ID
+#define OPT_DEVICE_ID       XPAR_AXI_GPIO_1_DEVICE_ID //REVISAR
+#define INTC_TMR_INTERRUPT_ID XPAR_FABRIC_AXI_TIMER_0_INTERRUPT_INTR
+#define INTC_TMR_INTERRUPT_ID_1 XPAR_FABRIC_AXI_TIMER_1_INTERRUPT_INTR
+#define INTC_OPT_INTERRUPT_ID     XPAR_FABRIC_AXI_GPIO_1_IP2INTC_IRPT_INTR //REVISAR
+#define OPT_ID            XGPIO_IR_CH1_MASK //REVISAR
+
+// funciones de interrupts
+static void TMR_Intr_Handler(void *baseaddr_p);
+static void TMR_Intr_Handler1(void *baseaddr_p);
+static void OPT_Intr_Handler(void *baseaddr_p);
+static int InterruptSystemSetup(XScuGic *XScuGicInstancePtr);
+static int IntcInitFunction(u16 DeviceId, XGpio *GpioInstancePtr, XTmrCtr *TmrInstancePtr,XTmrCtr *TmrInstancePtr1 );
+
+// Maquina de Estados
+#define MENU 0
+#define JUEGO 1
+#define FINAL 2
+int estado;
+#define PODIO
+
+//JUEGO
+#define MAX_BOMBS 50  //Para el maximo de bombas en pantalla
 
 void menu(struct options *settings);
 void gameover(int win);
 
+
 int main()
 {
 	int Status;
+	int status;
 	int magnitud;
-	int tanque_X = 59;
-	int prev_tanque_X = 59;
-	int movimiento;
-	int tanque_Y = 100;
+
 
     //Initialize the UART
     init_platform();
@@ -48,6 +89,13 @@ int main()
 		xil_printf("Gpio 0 Initialization Failed\r\n");
 		return XST_FAILURE;
 	}
+	/* Initialize the GPIO 1 driver opt interrupt and buttons */  //ACA GPIO OPTICO
+	Status = XGpio_Initialize(&gpio1, XPAR_AXI_GPIO_1_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Gpio 1 Initialization Failed\r\n");
+		return XST_FAILURE;
+	}
+	XGpio_SetDataDirection(&gpio1,1,0xFF);
 
 	// Set up the AXI SPI Controller 0 (Screen)
 	Status = XSpi_Init(&SpiInstance,SPI_DEVICE_ID);
@@ -67,6 +115,38 @@ int main()
 		xil_printf("IIC Mode Failed\r\n");
 		return XST_FAILURE;
 	}
+	read_opt();
+
+	// ------------------------------------------------
+	// SETUP TIMER 0
+	// ------------------------------------------------
+	status = XTmrCtr_Initialize(&TMRInst, TMR_DEVICE_ID);
+	if(status != XST_SUCCESS) return XST_FAILURE;
+	XTmrCtr_SetHandler(&TMRInst, (XTmrCtr_Handler) TMR_Intr_Handler, &TMRInst);
+	XTmrCtr_SetResetValue(&TMRInst, 0, TMR_LOAD);
+	XTmrCtr_SetOptions(&TMRInst, 0, XTC_INT_MODE_OPTION | XTC_AUTO_RELOAD_OPTION);
+
+	// ------------------------------------------------
+	// SETUP TIMER 1
+	// ------------------------------------------------
+	status = XTmrCtr_Initialize(&TMRInst1, TMR_DEVICE_ID_1);
+	if(status != XST_SUCCESS) return XST_FAILURE;
+	XTmrCtr_SetHandler(&TMRInst1, (XTmrCtr_Handler) TMR_Intr_Handler1, &TMRInst1);
+	XTmrCtr_SetResetValue(&TMRInst1, 0, TMR_LOAD1);
+	XTmrCtr_SetOptions(&TMRInst1, 0, XTC_INT_MODE_OPTION | XTC_AUTO_RELOAD_OPTION);
+
+	// ------------------------------------------------
+	// Initialize interrupt controller
+	// ------------------------------------------------
+	status = IntcInitFunction(INTC_DEVICE_ID, &gpio1, &TMRInst, &TMRInst1);
+	if(status != XST_SUCCESS) return XST_FAILURE;
+
+	// ------------------------------------------------
+	// Initialize timers
+	// ------------------------------------------------
+	XTmrCtr_Start(&TMRInst, 0);
+	XTmrCtr_Start(&TMRInst1, 0);
+
 	//Write through UART to PC
 	xil_printf("TFT initialized \r\n");
 	xil_printf("**********Init LCD**********\r\n");
@@ -76,19 +156,6 @@ int main()
 	// Default intro image from screen company
 	xil_printf("LCD Show \r\n");
 
-	//Define arrays for joystick, accelerometer, temperatura and ligth sensors.
-	// The ADC transform the data in 10bits, for temperatura and light sensors the data lenght is 16bits. For simplicity all
-	// arrays are defined as 16bits.
-	//char joyx[16] = {};
-	//char joyy[16] = {};
-	char acx[16] = {};
-	//char acy[16] = {};
-	//char acz[16] = {};
-	//char tmp[16] = {};
-	char opt[16] = {};
-	//char pot1[16] = {};
-	//char pot2[16] = {};
-	char mic[16] = {};
 
 	scanf("ingrese la atenuación del parlante [1-4] %d", &magnitud);
 	Xil_Out32(XPAR_BUZZER_AXI_0_S00_AXI_BASEADDR, &magnitud);
@@ -100,33 +167,107 @@ int main()
 	struct shoot shot[3];				//3 estructuras shoot dentro de shot
 	struct bomb bombs[MAX_BOMBS];		//estructuras bomb dentro de bombs
 	struct options settings;			//settings estructura tipo options
-//	unsigned int input, loops=0, i=0, j=0, currentshots=0, currentbombs=0, currentaliens=30;
-//	int random=0, score=0, win=-1;
-//	char tellscore[30];
+	unsigned int i=0, j=0, k=0, movimiento=0, loops=0, currentbombs=0;//, input, currentshots=0, currentaliens=30;
+	int score=0, random=0;//, win=-1;
 
 	LCD_Clear(GUI_BACKGROUND);			//se limpia la pantalla
 
-	settings.alien = 12;				//"timer" para acción de los aliens
+	settings.alien = 50;				//"timer" para acción de los aliens
 	settings.shots = 3;					//"timer" para movimiento del disparo
 	settings.bombs = 10;				//"timer" para movimiento de la bomba
-	settings.bombchance = 5;			//para la prob de tirar bomba
+	settings.bombchance = 1;			//para la prob de tirar bomba
 
-	tank.y = tanque_Y;					//coordenadas x e y del tanque
-	tank.x = tanque_X;
-	GUI_tanque(tanque_X, tanque_Y);		//Dibuja el tanque en pantalla
+	tank.y = 100;					//coordenadas x e y del tanque
+	tank.x = 59;
+	tank.px = 59;
+	GUI_tanque(tank.x, tank.y);		//Dibuja el tanque en pantalla
 
-
-
-
-
-	//Colocar Aliens
-	for (int i = 0; i<9; i++){
-		for(int j = 0; j<5; j++){
-			GUI_Alien_A(i*13 + 8, j*11 + 10);
+	for (j = 0; j<5; ++j){				//Iniciar los aliens
+		for(i = 0; i<9; ++i){
+			aliens[i + 9*j].y = j*11 + 10;		//Columna
+			aliens[i + 9*j].x = i*13 + 8;		//Fila
+			GUI_Alien_A(aliens[i + 9*j].x, aliens[i + 9*j].y); //pantalla
+			aliens[i + 9*j].alive = 1;	//para lógica de derrotados 1 es vivo, 0 es muerto
 		}
 	}
 
+	for (i=0; i<3; ++i) {				//Inicia los 3 disparos en inactivos 0
+	  shot[i].active = 0;
+	}
+
+	for (i=0; i<MAX_BOMBS; ++i) {		//inicia las bombas de los aliens inactivas 0
+	  bombs[i].active = 0;
+	  bombs[i].loop = 0;
+	}
+
+
 	while(1){
+
+		//xil_printf("Puntaje: %d\r\n", score);			//Puntaje
+
+		if (tank.x + movimiento >= 3 && tank.x + movimiento <= 112){//si el movimiento no se sale de la pantalla
+			tank.x += movimiento;						//Mover el tanque según acelerómetro
+			GUI_mover_tanque(tank.x, tank.px, tank.y);	//Mover en pantalla
+			tank.px = tank.x;							//Guarda posicion anterior
+		}
+		/*
+		if (loops % settings.bombs == 0){				//si el loop entra en movimiento de bombas
+			for (i=0; i<MAX_BOMBS; ++i) {				//revisa todas las bombas
+				if (bombs[i].active == 1) {				//si la bomba i esta activa
+					if (bombs[i].y < 128) {				//si la fila no ha superado el maximo de la pantalla
+						if (bombs[i].loop != 0) {		//si ya empezó el loop de caida de la bomba
+							GUI_DrawPoint(bombs[i].x,bombs[i].y - 3, GUI_BACKGROUND, DOT_PIXEL_1X1, DRAW_FULL); //vacia el pixel que queda arriba de la bomba
+							int ci = (bombs[i].x - 13)/13; //encuentra la columna correcta
+							for(j=0;j<5;++j){ 			//revisa los 5 aliens de la columna
+								if(aliens[j*9 + ci].alive == 1){ //Revisa si el alien esta vivo
+									for(k=2;k<6;++k){	//revisa los 4 pixeles que no se tienen que borrar
+										if(bombs[i].y - 3 == aliens[j*9 + ci].y +k){ //si el pixel que dejo atras la bomba es uno del alien
+											GUI_DrawPoint(bombs[i].x,bombs[i].y - 3, GREEN, DOT_PIXEL_1X1, DRAW_FULL); //lo dibuja como alien de nuevo
+										}
+									}
+								}
+							}
+						}
+						else{
+							++bombs[i].loop;			//sino empieza el loop
+						}
+						GUI_mover_bomba(bombs[i].x, bombs[i].y,BLUE); //mueve o dibuja la bomba en pantalla
+						++bombs[i].y;					//suma uno a la posicion de la bomba, cae 1
+					}
+					else{								//si la bomba llego abajo
+						bombs[i].active = 0;			//desactiva la bomba
+						bombs[i].loop = 0;				//termina el loop de la bomba
+						--currentbombs;					//quita una bomba actal
+						GUI_mover_bomba(bombs[i].x, bombs[i].y-1,GUI_BACKGROUND); //quita la bomba de la pantalla
+					}
+				}
+			}
+		}
+		/*
+		if (loops % settings.shots == 0){						//si el loop es para mover los disparos
+			for (i=0; i<3; ++i) {								//revisa los 3 disparos disponibles
+				xil_printf("%d\r\n", i);
+				xil_printf("Disparo: %d\r\n", shot[i].active);
+			}
+		}
+		*/
+		++loops;
+		if (loops % settings.alien == 0){
+			for(i=0; i<45; ++i){
+				random = 1+(rand()%100);
+				if ((settings.bombchance - random) >= 0 && currentbombs < MAX_BOMBS){
+					for (j=0; j<MAX_BOMBS; ++j) {
+					   if (bombs[j].active == 0) {
+						  bombs[j].active = 1;
+						  ++currentbombs;
+						  bombs[j].y = aliens[i].y + 9;
+						  bombs[j].x = aliens[i].x + 5;
+						  break;
+					   }
+					}
+				}
+			}
+		}
 
 		if (read_MIC() > 650) {
 			xil_printf("Disparo!\r\n");
@@ -135,6 +276,8 @@ int main()
 //		if (read_tmp() < 1) {
 //			xil_printf("Pausa\r\n");
 //		}
+
+
 
 		if (read_acx() >= 469 && read_acx() <= 579){
 			movimiento = ((read_acx() - 469) / 16) - 3;
@@ -145,12 +288,7 @@ int main()
 		else if(read_acx() > 579){
 			movimiento = 3;
 		}
-		if (tanque_X + movimiento >= 3 && tanque_X + movimiento <= 112){
-			tanque_X += movimiento;
-			//xil_printf("Movimiento: %d\r\n", movimiento);
-			GUI_mover_tanque(tanque_X, prev_tanque_X, tanque_Y);
-			prev_tanque_X = tanque_X;
-		}
+
 
 
 		delay_ms(15);
@@ -160,91 +298,120 @@ int main()
 	    return 0;
 }
 
-	/*
 
-	// Here we write in black the space where the data will be written. It is like "clear" the space.
-	GUI_DisString_EN(5,40,joyx,&Font16,GUI_BACKGROUND,GUI_BACKGROUND);
-	GUI_DisString_EN(5,100,joyy,&Font16,GUI_BACKGROUND,GUI_BACKGROUND);
-	GUI_DisString_EN(70,40,tmp,&Font16,GUI_BACKGROUND,GUI_BACKGROUND);
-	GUI_DisString_EN(70,100,opt,&Font16,GUI_BACKGROUND,GUI_BACKGROUND);
+void OPT_Intr_Handler(void *data){
 
-	// Function "sprintf" copy the value of "read_XXXX()" into the value of the array defined.
-	// Here we read joystick , temperature sensor, light sensor and accelerometer.
-	sprintf(joyx, "%d", read_joyx());
-	sprintf(joyy, "%d", read_joyy());
-	sprintf(tmp, "%d", read_tmp());
-	sprintf(opt, "%i", read_opt());
-	//sprintf(acx, "%d", read_acx());
-	//sprintf(acy, "%d", read_acy());
-	//sprintf(acz, "%d", read_acz());
+	xil_printf("---------------------INTERRUPCION DE LUZ ACTIVADO ----------------------------------\n\r");
 
-	// GUI_DisString_EN() is the function to draw a string in the screen.
-	// Here we write the text "Ejex", "EjeY", "Temp", "Luz"
-	GUI_DisString_EN(5,10,"Ejex",&Font16,GUI_BACKGROUND,CYAN);
-	GUI_DisString_EN(5,70,"EjeY",&Font16,GUI_BACKGROUND,CYAN);
-	GUI_DisString_EN(70,10,"Temp",&Font16,GUI_BACKGROUND,CYAN);
-	GUI_DisString_EN(70,70,"Luz",&Font16,GUI_BACKGROUND,CYAN);
-	// Here we write the value which is constantly refresh. Position is the same as where we previously put in black.
-	GUI_DisString_EN(5,40,joyx,&Font16,GUI_BACKGROUND,YELLOW);
-	GUI_DisString_EN(5,100,joyy,&Font16,GUI_BACKGROUND,YELLOW);
-	GUI_DisString_EN(70,40,tmp,&Font16,GUI_BACKGROUND,YELLOW);
-	GUI_DisString_EN(70,100,opt,&Font16,GUI_BACKGROUND,YELLOW);
-*/
-// GUI_DisString_EN() is the function to draw a string in the screen.
-// Here we write the text "Ejex", "EjeY", "Temp", "Luz",etc.
-//GUI_DisString_EN(5,10,"Ejex",&Font12,GUI_BACKGROUND,CYAN);
-//GUI_DisString_EN(5,45,"EjeY",&Font12,GUI_BACKGROUND,CYAN);
-//GUI_DisString_EN(50,10,"Temp",&Font12,GUI_BACKGROUND,CYAN);
-//GUI_DisString_EN(50,45,"Luz",&Font12,GUI_BACKGROUND,CYAN);
-//GUI_DisString_EN(95,10,"POT1",&Font12,GUI_BACKGROUND,CYAN);
-//GUI_DisString_EN(95,45,"POT2",&Font12,GUI_BACKGROUND,CYAN);
-//GUI_DisString_EN(5,80,"ACX",&Font12,GUI_BACKGROUND,CYAN);
-//GUI_DisString_EN(50,80,"ACY",&Font12,GUI_BACKGROUND,CYAN);
-//GUI_DisString_EN(95,80,"MIC",&Font12,GUI_BACKGROUND,CYAN);
+	//Disable GPIO interrupts
+	XGpio_InterruptDisable(&gpio1, OPT_ID);
 
-// Here we overwrite in black the value of the data. It is like "clear" the space.(as background is black)
-//GUI_DisString_EN(5,30,joyx,&Font12,GUI_BACKGROUND,GUI_BACKGROUND);
-//GUI_DisString_EN(5,65,joyy,&Font12,GUI_BACKGROUND,GUI_BACKGROUND);
-//GUI_DisString_EN(50,30,tmp,&Font12,GUI_BACKGROUND,GUI_BACKGROUND);
-//GUI_DisString_EN(50,65,opt,&Font12,GUI_BACKGROUND,GUI_BACKGROUND);
-//GUI_DisString_EN(95,30,pot1,&Font12,GUI_BACKGROUND,GUI_BACKGROUND);
-//GUI_DisString_EN(95,65,pot2,&Font12,GUI_BACKGROUND,GUI_BACKGROUND);
-//GUI_DisString_EN(5,100,acx, &Font12,GUI_BACKGROUND,GUI_BACKGROUND);
-//GUI_DisString_EN(50,100,acy, &Font12,GUI_BACKGROUND,GUI_BACKGROUND);
-//GUI_DisString_EN(95,100,mic, &Font12,GUI_BACKGROUND,GUI_BACKGROUND);
+	if ((XGpio_InterruptGetStatus(&gpio1) & OPT_ID) != OPT_ID){
+		return;
+	}
+	xil_printf("Luz interrupt se leyo:%i\n\r", read_opt());
+	//AÑADIR WEAS
+	(void)XGpio_InterruptClear(&gpio1, OPT_ID);
 
-// Function "sprintf" copy the value of "read_XXXX()" into the value of the array defined.
-// Here we read joystick , temperature sensor, light sensor, accelerometer, etc.
-//sprintf(joyx, "%d", read_joyx());
-//sprintf(joyy, "%d", read_joyy());
-//sprintf(tmp, "%d", read_tmp());
-//sprintf(opt, "%d", read_opt());
-//sprintf(pot1, "%d", read_POT1());
-//sprintf(pot2, "%d", read_POT2());
-//sprintf(acx, "%d", read_acx());
-//sprintf(acy, "%d", read_acy());
-//sprintf(mic, "%d", read_MIC());
+	XGpio_InterruptEnable(&gpio1, OPT_ID);
+	xil_printf("---------------------INTERRUPCION DE LUZ TERMINADO ----------------------------------\n\r");
+}
 
-// Here we write the value which is constantly refresh.
-// Position is the same as where we previously put in black.
-//GUI_DisString_EN(5,30,joyx,&Font12,GUI_BACKGROUND,YELLOW);
-//GUI_DisString_EN(5,65,joyy,&Font12,GUI_BACKGROUND,YELLOW);
-//GUI_DisString_EN(50,30,tmp,&Font12,GUI_BACKGROUND,YELLOW);
-//GUI_DisString_EN(50,65,opt,&Font12,GUI_BACKGROUND,YELLOW);
-//GUI_DisString_EN(95,30,pot1,&Font12,GUI_BACKGROUND,YELLOW);
-//GUI_DisString_EN(95,65,pot2,&Font12,GUI_BACKGROUND,YELLOW);
-//GUI_DisString_EN(5,100,acx, &Font12,GUI_BACKGROUND,YELLOW);
-//GUI_DisString_EN(50,100,acy, &Font12,GUI_BACKGROUND,YELLOW);
-//GUI_DisString_EN(95,100,mic, &Font12,GUI_BACKGROUND,YELLOW);
-	//We send through UART the data for each reading. This allows us to see what is happening inside the uP.
-	//xil_printf("JX :%d\r\n", read_joyx());
-	//xil_printf("JY :%d\r\n", read_joyy());
-	//xil_printf("ACX :%d\r\n", read_acx());
-	//xil_printf("ACY :%d\r\n", read_acy());
-	//xil_printf("ACZ :%d\r\n", read_acz());
-	//xil_printf("MIC :%d\r\n", read_MIC());
-	//xil_printf("POT1 :%d\r\n", read_POT1());
-	//xil_printf("POT2 :%d\r\n", read_POT2());
-	//xil_printf("Luz :%i\r\n", read_opt());
-	//xil_printf("\n");
+void TMR_Intr_Handler(void *data)
+{
+	if (XTmrCtr_IsExpired(&TMRInst,0)){
+		//Once timer has expired 3 times, stop increment counter
+		// reset timer and start running again
+		if(tmr_count == 1){
+			XTmrCtr_Stop(&TMRInst,0);
 
+			//AÑADIR LOGICA
+
+			xil_printf("Timer0 Interrupt \n\r");
+			XTmrCtr_Reset(&TMRInst,0);
+			XTmrCtr_Start(&TMRInst,0);
+		}
+		else {tmr_count++;}
+	}
+}
+void TMR_Intr_Handler1(void *data)
+{
+	if (XTmrCtr_IsExpired(&TMRInst1,0)){
+		//Once timer has expired 3 times, stop increment counter
+		// reset timer and start running again
+		if(tmr_count1 == 1){
+			XTmrCtr_Stop(&TMRInst1,0);
+			// Check if the new score is higher than any of the existing scores
+
+			//AÑADIR LOGICA
+
+			xil_printf("Timer1 Interrupt \n\r");
+			XTmrCtr_Reset(&TMRInst1,0);
+			XTmrCtr_Start(&TMRInst1,0);
+		}
+		else{ tmr_count1++;}
+	}
+}
+
+int InterruptSystemSetup(XScuGic *XScuGicInstancePtr) //CHECK
+{
+	// Enable Interrupt
+
+	XGpio_InterruptEnable(&gpio1, OPT_ID);
+	XGpio_InterruptGlobalEnable(&gpio1);
+
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+	(Xil_ExceptionHandler)XScuGic_InterruptHandler,
+	XScuGicInstancePtr);
+
+	Xil_ExceptionEnable();
+
+	return XST_SUCCESS;
+
+}
+
+int IntcInitFunction(u16 DeviceId,XGpio *GpioInstancePtr, XTmrCtr *TmrInstancePtr, XTmrCtr *TmrInstancePtr1)
+{
+	XScuGic_Config *IntcConfig;
+	int status;
+
+	// Interrupt controller initialization
+	IntcConfig = XScuGic_LookupConfig(DeviceId);
+	status = XScuGic_CfgInitialize(&INTCInst, IntcConfig, IntcConfig->CpuBaseAddress);
+	if(status != XST_SUCCESS) return XST_FAILURE;
+
+	// Call to interrupt Controller setup
+	status = InterruptSystemSetup(&INTCInst);
+	if(status != XST_SUCCESS) return XST_FAILURE;
+
+	// ASIGNACION DE PRIORIDADES
+
+	XScuGic_SetPriorityTriggerType(&INTCInst, INTC_OPT_INTERRUPT_ID, 0x18, 0x1);
+	XScuGic_SetPriorityTriggerType(&INTCInst, INTC_TMR_INTERRUPT_ID, 0x20, 0x1);
+	XScuGic_SetPriorityTriggerType(&INTCInst, INTC_TMR_INTERRUPT_ID_1, 0x28, 0x1);
+
+
+	// Connect timer 0 interrupt to handler
+	status = XScuGic_Connect(&INTCInst,INTC_TMR_INTERRUPT_ID,(Xil_ExceptionHandler)TMR_Intr_Handler,(void *) TmrInstancePtr);
+	if(status != XST_SUCCESS) return XST_FAILURE;
+
+	// Connect timer 1 interrupt to handler
+	status = XScuGic_Connect(&INTCInst,INTC_TMR_INTERRUPT_ID_1,(Xil_ExceptionHandler)TMR_Intr_Handler1,(void *) TmrInstancePtr1);
+	if(status != XST_SUCCESS) return XST_FAILURE;
+
+	// Connect interrupt light
+	status = XScuGic_Connect(&INTCInst,INTC_OPT_INTERRUPT_ID,(Xil_ExceptionHandler)OPT_Intr_Handler,(void *)GpioInstancePtr);
+	if(status != XST_SUCCESS) return XST_FAILURE;
+
+	// Enable GPIO interrupts
+	XGpio_InterruptEnable(GpioInstancePtr,1);
+	XGpio_InterruptGlobalEnable(GpioInstancePtr);
+
+	// Enable timer interrupts in the controller
+
+	XScuGic_Enable(&INTCInst, INTC_TMR_INTERRUPT_ID);
+	XScuGic_Enable(&INTCInst, INTC_TMR_INTERRUPT_ID_1);
+	XScuGic_Enable(&INTCInst, INTC_OPT_INTERRUPT_ID);
+
+	return XST_SUCCESS;
+}

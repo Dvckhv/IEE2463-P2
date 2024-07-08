@@ -88,6 +88,11 @@ void GUI_DisNum(POINT Xpoint, POINT Ypoint, int32_t Nummber, sFONT* Font, COLOR 
 void GUI_Show(void);
 void GUI_INTRO(void);
 
+void GUI_tanque(int X, int Y);
+void GUI_mover_tanque(int X, int prev_X, int Y);
+void GUI_Alien_A(int X, int Y);
+void GUI_mover_bomba(int X, int Y, COLOR color);
+
 
 
 static const unsigned char waveshare[1024]=
@@ -331,7 +336,3 @@ static const int intro[128][128]=
 
 #endif  
 	 
-	 
-
-
-
